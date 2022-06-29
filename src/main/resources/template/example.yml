@@ -1,0 +1,13 @@
+board:
+  id: example
+  mode:
+    auto: true
+    priority: 0
+  condition: ""
+  head: "&f&l      Hello World      "
+  content: |
+    &f&m
+    &f
+    &f玩家：&8%player_name%
+    &f
+    &f&m
