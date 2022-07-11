@@ -17,11 +17,10 @@ taboolib {
     install("module-kether")
     install("module-lang")
     classifier = null
-    version = "6.0.9-5"
+    version = "6.0.9-26"
 }
 
 repositories {
-    maven { url = uri("https://repo.spongepowered.org/maven") }
     mavenCentral()
 }
 
