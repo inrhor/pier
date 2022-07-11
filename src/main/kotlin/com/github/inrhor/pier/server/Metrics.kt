@@ -1,7 +1,6 @@
-package cn.inrhor.questengine.server
+package com.github.inrhor.pier.server
 
-import cn.inrhor.questengine.common.dialog.DialogManager
-import cn.inrhor.questengine.common.quest.manager.QuestManager
+import com.github.inrhor.pier.api.manager.BoardManager
 import taboolib.common.LifeCycle
 import taboolib.common.platform.Awake
 import taboolib.common.platform.Platform
@@ -12,17 +11,14 @@ import taboolib.module.metrics.charts.SingleLineChart
 object Metrics {
 
     private val bStats by lazy {
-        Metrics(12482, pluginVersion, Platform.BUKKIT)
+        Metrics(15732, pluginVersion, Platform.BUKKIT)
     }
 
     @Awake(LifeCycle.ACTIVE)
     fun init() {
         bStats.let {
-            it.addCustomChart(SingleLineChart("quest") {
-                QuestManager.getQuestMap().size
-            })
-            it.addCustomChart(SingleLineChart("dialog") {
-                DialogManager.getMap().size
+            it.addCustomChart(SingleLineChart("board") {
+                BoardManager.boardMap.size
             })
         }
     }

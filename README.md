@@ -16,7 +16,7 @@ allprojects {
 }
 
 dependencies {
-        implementation 'com.github.inrhor:pier:Tag'
+        implementation 'com.github.inrhor:pier:0.1.0'
 }
 ```
 ### Maven
@@ -31,6 +31,6 @@ dependencies {
 <dependency>
     <groupId>com.github.inrhor</groupId>
     <artifactId>pier</artifactId>
-    <version>Tag</version>
+    <version>0.1.0</version>
 </dependency>
 ```
