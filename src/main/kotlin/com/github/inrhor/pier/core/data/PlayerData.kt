@@ -5,11 +5,15 @@ import com.github.inrhor.pier.api.manager.BoardManager.getBoard
 import com.github.inrhor.pier.util.sendBoard
 import org.bukkit.entity.Player
 import taboolib.common.platform.function.submit
+import taboolib.common.platform.service.PlatformExecutor
 import taboolib.module.chat.colored
 import taboolib.module.nms.sendScoreboard
 import taboolib.platform.compat.replacePlaceholder
 
-data class PlayerData(var select: String = "", val boardMap: MutableMap<String, BoardData> = mutableMapOf()) {
+data class PlayerData(var select: String = "",
+                      val boardMap: MutableMap<String, BoardData> = mutableMapOf()) {
+
+    private var task: PlatformExecutor.PlatformTask? = null
 
     /**
      * @return 获取当前选择面板的数据
@@ -32,15 +36,15 @@ data class PlayerData(var select: String = "", val boardMap: MutableMap<String, 
     }
 
     private fun sendBoard(player: Player, b: BoardFrame, index: Int = 0) {
-        val i = b.getList(index).replacePlaceholder(player).colored()
         if (b.refresh > 0) {
-            submit(async = true, period = b.refresh.toLong()) {
-                if (!player.isOnline || select != b.id) {
+            task?.cancel()
+            task = submit(async = true, period = b.refresh.toLong()) {
+                if (!player.isOnline) {
                     cancel();return@submit
                 }
-                player.sendBoard(i)
+                player.sendBoard(b.getList(index).replacePlaceholder(player).colored())
             }
-        }else player.sendBoard(i)
+        }else player.sendBoard(b.getList(index).replacePlaceholder(player).colored())
     }
 
     /**
