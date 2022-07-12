@@ -3,6 +3,7 @@ board:
   mode:
     auto: true
     priority: 0
+  refresh: 10
   condition: ""
   head: "&f&l      Hello World      "
   content: |

@@ -1,8 +1,10 @@
 package com.github.inrhor.pier.core.data
 
+import com.github.inrhor.pier.api.BoardFrame
 import com.github.inrhor.pier.api.manager.BoardManager.getBoard
 import com.github.inrhor.pier.util.sendBoard
 import org.bukkit.entity.Player
+import taboolib.common.platform.function.submit
 import taboolib.module.chat.colored
 import taboolib.module.nms.sendScoreboard
 import taboolib.platform.compat.replacePlaceholder
@@ -25,8 +27,20 @@ data class PlayerData(var select: String = "", val boardMap: MutableMap<String, 
             player.sendScoreboard()
         }else {
             val b = id.getBoard()?: return
-            player.sendBoard(b.getList().colored().replacePlaceholder(player))
+            sendBoard(player, b)
         }
+    }
+
+    private fun sendBoard(player: Player, b: BoardFrame, index: Int = 0) {
+        val i = b.getList(index).replacePlaceholder(player).colored()
+        if (b.refresh > 0) {
+            submit(async = true, period = b.refresh.toLong()) {
+                if (!player.isOnline || select != b.id) {
+                    cancel();return@submit
+                }
+                player.sendBoard(i)
+            }
+        }else player.sendBoard(i)
     }
 
     /**
@@ -44,7 +58,7 @@ data class PlayerData(var select: String = "", val boardMap: MutableMap<String, 
                 return
             }else boardData.scroll--
         }
-        player.sendBoard(b.getList(boardData.scroll).colored().replacePlaceholder(player))
+        sendBoard(player, b, boardData.scroll)
     }
 
     enum class ScrollType {

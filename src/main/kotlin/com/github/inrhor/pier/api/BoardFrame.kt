@@ -4,7 +4,7 @@ import com.github.inrhor.pier.api.manager.BoardManager.tags
 import com.github.inrhor.pier.util.toList
 
 class BoardFrame(val id: String = "", val head: String = "", val content: String = "",
-                 val mode: ModeAddon = ModeAddon(), val condition: String = "") {
+                 val mode: ModeAddon = ModeAddon(), val condition: String = "", val refresh: Int = 0) {
 
     fun getList(from: Int = 0): List<String> {
         var max = 1
