@@ -6,9 +6,7 @@ import com.github.inrhor.pier.util.sendBoard
 import org.bukkit.entity.Player
 import taboolib.common.platform.function.submit
 import taboolib.common.platform.service.PlatformExecutor
-import taboolib.module.chat.colored
 import taboolib.module.nms.sendScoreboard
-import taboolib.platform.compat.replacePlaceholder
 
 data class PlayerData(var select: String = "",
                       val boardMap: MutableMap<String, BoardData> = mutableMapOf()) {
@@ -42,9 +40,9 @@ data class PlayerData(var select: String = "",
                 if (!player.isOnline) {
                     cancel();return@submit
                 }
-                player.sendBoard(b.getList(index).replacePlaceholder(player).colored())
+                player.sendBoard(b.getList(player, index))
             }
-        }else player.sendBoard(b.getList(index).replacePlaceholder(player).colored())
+        }else player.sendBoard(b.getList(player, index))
     }
 
     /**

@@ -20,3 +20,15 @@ fun runEval(player: Player, script: String): Boolean {
         false
     }
 }
+
+fun textEval(player: Player, script: String): String {
+    if (script.isEmpty()) return ""
+    return try {
+        KetherShell.eval("inline '$script'", sender = adaptPlayer(player), namespace = listOf("Pier", "QuestEngine")).thenApply {
+            Coerce.toString(it)
+        }.getNow("")
+    } catch (ex: Throwable) {
+        ex.printKetherErrorMessage()
+        ""
+    }
+}
