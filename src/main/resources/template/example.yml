@@ -7,8 +7,10 @@ board:
   condition: ""
   head: "&f&l      Hello World      "
   content: |
-    &f&m
+    &f&m                
     &f
     &f玩家：&8%player_name%
     &f
-    &f&m
+    &f饥饿值：{{player food level}}
+    &f
+    &f&m                
