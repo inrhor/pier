@@ -2,8 +2,9 @@ package com.github.inrhor.pier.command
 
 import taboolib.common.platform.command.CommandBody
 import taboolib.common.platform.command.CommandHeader
+import taboolib.common.platform.command.PermissionDefault
 
-@CommandHeader("pier")
+@CommandHeader("pier", permission = "pier.command", permissionDefault = PermissionDefault.TRUE)
 object Command {
 
     @CommandBody(permission = "pier.admin.add")
