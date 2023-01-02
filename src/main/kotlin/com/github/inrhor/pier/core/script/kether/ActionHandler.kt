@@ -1,5 +1,7 @@
 package com.github.inrhor.pier.core.script.kether
 
+import cn.inrhor.questengine.api.manager.DataManager.trackingData
+import com.github.inrhor.pier.api.BoardHook
 import org.bukkit.entity.Player
 import taboolib.common.platform.function.adaptPlayer
 import taboolib.common.platform.function.console
@@ -21,10 +23,17 @@ fun runEval(player: Player, script: String): Boolean {
     }
 }
 
-fun textEval(player: Player, script: String): String {
+fun textEval(player: Player, script: String, hook: BoardHook): String {
     if (script.isEmpty()) return ""
     return try {
-        KetherShell.eval("inline '$script'", sender = adaptPlayer(player), namespace = listOf("Pier", "QuestEngine")).thenApply {
+        KetherShell.eval("inline '$script'", sender = adaptPlayer(player),
+            namespace = listOf("Pier", "QuestEngine")) {
+            if (hook == BoardHook.QUEST_ENGINE) {
+                val a = player.trackingData()
+                rootFrame().variables().set("@QenQuestID", a.questID)
+                rootFrame().variables().set("@QenTargetID", a.targetID)
+            }
+        }.thenApply {
             Coerce.toString(it)
         }.getNow("")
     } catch (ex: Throwable) {

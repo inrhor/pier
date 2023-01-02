@@ -1,7 +1,7 @@
 plugins {
     `java-library`
     `maven-publish`
-    id("io.izzel.taboolib") version "1.40"
+    id("io.izzel.taboolib") version "1.52"
     id("org.jetbrains.kotlin.jvm") version "1.5.10"
 }
 
@@ -16,12 +16,22 @@ taboolib {
     install("module-chat")
     install("module-kether")
     install("module-lang")
+    description {
+        contributors {
+            name("inrhor")
+            desc("Minecraft Board")
+        }
+        dependencies {
+            name("QuestEngine").optional(true)
+        }
+    }
     classifier = null
-    version = "6.0.9-26"
+    version = "6.0.10-40"
 }
 
 repositories {
     mavenCentral()
+    maven("https://jitpack.io")
 }
 
 sourceSets {
@@ -39,6 +49,7 @@ java {
 dependencies {
     compileOnly("ink.ptms.core:v11800:11800-minimize:api")
     compileOnly("ink.ptms.core:v11800:11800-minimize:mapped")
+//    compileOnly("com.github.inrhor:QuestEngine:3.0.0")
     compileOnly(kotlin("stdlib"))
     compileOnly(fileTree("libs"))
 }

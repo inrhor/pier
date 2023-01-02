@@ -1,20 +1,4 @@
 board:
-  id: example
-  mode:
-    auto: true
-    priority: 0
-  refresh: 10
-  condition: ""
-  head: "&f&l      Hello World      "
-  content: |
-    &f&m                
-    &f
-    &f玩家：&8%player_name%
-    &f
-    &f饥饿值：{{player food level}}
-    &f
-    &f&m
-quest:
   id: quest
   mode:
       auto: false
@@ -28,6 +12,6 @@ quest:
       &f
       &f追踪：&8{{quest name}}
       &f
-      &f状态：&8{{quest state}}
+      &f状态：&8{{quest state lang}}
       __QenTargetNote__
       &f&m

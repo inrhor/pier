@@ -13,4 +13,4 @@ board:
     &f
     &f饥饿值：{{player food level}}
     &f
-    &f&m                
+    &f&m
